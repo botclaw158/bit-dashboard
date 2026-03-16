@@ -14,14 +14,14 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #1a1d29;
+            background: #0f1419;
             color: white;
-            padding: 20px;
+            padding: 15px;
             min-height: 100vh;
         }
         
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
@@ -34,7 +34,11 @@
         .title {
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .status-indicator {
@@ -50,13 +54,13 @@
         .live-dot {
             width: 6px;
             height: 6px;
-            background: #10b981;
+            background: #27ae60;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
         
         .offline-dot {
-            background: #ef4444;
+            background: #e74c3c;
         }
         
         @keyframes pulse {
@@ -69,78 +73,48 @@
             opacity: 0.6;
         }
         
-        /* Premium Metric Cards */
-        .metric-grid {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-        
+        /* Metric Cards */
         .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 20px;
+            margin-bottom: 12px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
         }
         
-        /* BTC Price Card - Orange */
-        .btc-card {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(251, 191, 36, 0.1));
-            border-color: rgba(245, 158, 11, 0.3);
-        }
-        
-        /* Portfolio Value Card - Green */
-        .portfolio-card {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 197, 94, 0.1));
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        
-        /* Active Pockets Card - Blue */
-        .active-card {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(99, 102, 241, 0.1));
-            border-color: rgba(59, 130, 246, 0.3);
-        }
-        
-        /* Deployed Capital Card - Purple */
-        .deployed-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1));
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-        
-        /* Available USDC Card - Purple */
-        .usdc-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(168, 85, 247, 0.1));
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-        
-        /* Total Profit Card - Special Green */
-        .profit-card {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(34, 197, 94, 0.15));
-            border: 2px solid #10b981;
+        .metric-card.profit {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1), rgba(46, 204, 113, 0.1));
+            border-color: #27ae60;
         }
         
         .metric-label {
             font-size: 14px;
-            opacity: 0.8;
+            opacity: 0.7;
             margin-bottom: 8px;
-            font-weight: 500;
         }
         
         .metric-value {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 4px;
         }
         
-        .metric-value.orange { color: #f59e0b; }
-        .metric-value.green { color: #10b981; }
-        .metric-value.blue { color: #3b82f6; }
-        .metric-value.purple { color: #8b5cf6; }
+        .metric-value.btc {
+            color: #f39c12;
+            font-size: 28px;
+        }
         
-        .metric-subtitle {
-            font-size: 11px;
-            opacity: 0.6;
+        .metric-value.green {
+            color: #27ae60;
+        }
+        
+        .metric-value.blue {
+            color: #3498db;
+        }
+        
+        .metric-value.profit {
+            color: #27ae60;
+            font-size: 28px;
         }
         
         /* Section Headers */
@@ -151,7 +125,11 @@
             font-size: 16px;
             font-weight: 600;
             margin: 25px 0 15px 0;
-            color: #10b981;
+            padding: 0 5px;
+        }
+        
+        .section-icon {
+            font-size: 18px;
         }
         
         .toggle-button {
@@ -162,30 +140,25 @@
             color: white;
             font-size: 12px;
             cursor: pointer;
-            transition: all 0.2s ease;
         }
         
-        .toggle-button:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        /* Premium Pocket Cards */
+        /* Pocket Cards */
         .pocket-card {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(34, 197, 94, 0.1));
-            border: 2px solid #10b981;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid #27ae60;
             border-radius: 16px;
             padding: 16px;
             margin-bottom: 12px;
         }
         
         .pocket-card.completed {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(34, 197, 94, 0.05));
-            border-color: #10b981;
+            border-color: #27ae60;
+            background: rgba(46, 204, 113, 0.05);
         }
         
         .pocket-card.loss {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.1));
-            border-color: #ef4444;
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.05);
         }
         
         .pocket-header {
@@ -201,16 +174,16 @@
         }
         
         .target-badge {
-            background: #f59e0b;
-            color: #000;
+            background: #f39c12;
+            color: black;
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 11px;
             font-weight: bold;
-            text-transform: uppercase;
         }
         
         .completed-badge {
+            background: #27ae60;
             color: white;
             padding: 6px 12px;
             border-radius: 8px;
@@ -218,8 +191,14 @@
             font-weight: bold;
         }
         
-        .completed-badge.profit { background: #10b981; }
-        .completed-badge.loss { background: #ef4444; }
+        .loss-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+        }
         
         .pocket-details {
             display: grid;
@@ -235,7 +214,6 @@
         .detail-label {
             opacity: 0.7;
             margin-bottom: 4px;
-            font-weight: 500;
         }
         
         .detail-value {
@@ -243,8 +221,13 @@
             font-size: 14px;
         }
         
-        .detail-value.profit { color: #10b981; }
-        .detail-value.loss { color: #ef4444; }
+        .detail-value.profit {
+            color: #27ae60;
+        }
+        
+        .detail-value.loss {
+            color: #e74c3c;
+        }
         
         /* Progress Bar */
         .progress-section {
@@ -255,7 +238,6 @@
             font-size: 11px;
             opacity: 0.8;
             margin-bottom: 8px;
-            font-weight: 500;
         }
         
         .progress-bar {
@@ -268,7 +250,7 @@
         
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #f59e0b, #f97316);
+            background: linear-gradient(90deg, #f39c12, #e67e22);
             border-radius: 4px;
             transition: width 0.3s ease;
         }
@@ -281,7 +263,7 @@
         }
         
         .refresh-button {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
             border: none;
             border-radius: 12px;
             padding: 15px 20px;
@@ -298,7 +280,7 @@
         }
         
         .trading-status {
-            background: linear-gradient(135deg, #f59e0b, #f97316);
+            background: linear-gradient(135deg, #e67e22, #f39c12);
             border-radius: 12px;
             padding: 15px;
             text-align: center;
@@ -317,7 +299,9 @@
         }
         
         @media (max-width: 480px) {
-            .container { padding: 0 5px; }
+            .container {
+                padding: 0 5px;
+            }
         }
     </style>
 </head>
@@ -332,52 +316,43 @@
             <div class="update-time" id="lastUpdate">Last Update: Loading...</div>
         </div>
         
-        <div class="metric-grid">
-            <!-- BTC Price Card -->
-            <div class="metric-card btc-card">
-                <div class="metric-label">Current BTC Price</div>
-                <div class="metric-value orange" id="btcPrice">Loading...</div>
-                <div class="metric-subtitle">(Auto-updating every 30s)</div>
-            </div>
-            
-            <!-- Portfolio Value Card -->
-            <div class="metric-card portfolio-card">
-                <div class="metric-label">Portfolio Value</div>
-                <div class="metric-value green" id="portfolioValue">$0.00</div>
-            </div>
-            
-            <!-- Active Pockets Card -->
-            <div class="metric-card active-card">
-                <div class="metric-label">Active Pockets</div>
-                <div class="metric-value blue">1</div>
-            </div>
-            
-            <!-- Deployed Capital Card -->
-            <div class="metric-card deployed-card">
-                <div class="metric-label">Deployed Capital</div>
-                <div class="metric-value purple">$50.00</div>
-            </div>
-            
-            <!-- Available USDC Card -->
-            <div class="metric-card usdc-card">
-                <div class="metric-label">Available USDC</div>
-                <div class="metric-value purple">$602.25</div>
-            </div>
-            
-            <!-- Total Profit Card (NEW FEATURE) -->
-            <div class="metric-card profit-card">
-                <div class="metric-label">💰 Total Profit from Completed Trades</div>
-                <div class="metric-value green" id="totalProfit">+$31.01</div>
-                <div class="metric-subtitle" id="profitSummary">Overall Return: +4.2% across 19 trades</div>
-            </div>
+        <!-- BTC Price Card -->
+        <div class="metric-card">
+            <div class="metric-label">Current BTC Price</div>
+            <div class="metric-value btc" id="btcPrice">Loading...</div>
+        </div>
+        
+        <!-- Total Profit Card -->
+        <div class="metric-card profit">
+            <div class="metric-label">Total Profit Realized</div>
+            <div class="metric-value profit">$31.01</div>
+        </div>
+        
+        <!-- Win Rate Card -->
+        <div class="metric-card">
+            <div class="metric-label">Win Rate</div>
+            <div class="metric-value green">94.7%</div>
+        </div>
+        
+        <!-- Active Pockets Card -->
+        <div class="metric-card">
+            <div class="metric-label">Active Pockets</div>
+            <div class="metric-value green">1</div>
+        </div>
+        
+        <!-- Available USDC Card -->
+        <div class="metric-card">
+            <div class="metric-label">Available USDC</div>
+            <div class="metric-value blue">$602.25</div>
         </div>
         
         <!-- Active Positions Section -->
         <div class="section-header">
-            <div>📊 Active Positions (1/25)</div>
+            <div><span class="section-icon">📊</span> Active Positions (1/25)</div>
         </div>
         
         <div id="activePositions">
+            
             <div class="pocket-card">
                 <div class="pocket-header">
                     <div class="pocket-title">Pocket #20</div>
@@ -398,7 +373,7 @@
                     </div>
                     <div class="detail-item">
                         <div class="detail-label">Current P&L:</div>
-                        <div class="detail-value profit" id="pl_20">+$0.00</div>
+                        <div class="detail-value profit" id="pl_20">$0.00</div>
                     </div>
                 </div>
                 <div class="progress-section">
@@ -408,15 +383,18 @@
                     </div>
                 </div>
             </div>
+            
         </div>
         
-        <!-- Completed Trades Section (WITH TOGGLE FEATURE) -->
+        <!-- Completed Trades Section -->
         <div class="section-header">
-            <div>✅ Completed Trades (19)</div>
+            <div><span class="section-icon">✅</span> Completed Trades (19)</div>
             <button class="toggle-button" onclick="toggleCompletedTrades()">Show All</button>
         </div>
         
-        <div id="completedTrades"></div>
+        <div id="completedTrades">
+            <!-- Will be populated by JavaScript -->
+        </div>
         
         <!-- Refresh Button -->
         <button class="refresh-button" onclick="refreshDashboard()">
@@ -436,34 +414,14 @@
     </div>
     
     <script>
+        // Real current trading data
         const tradingData = {
             activePockets: 1,
             availableUSDC: 602.25,
-            deployedCapital: 50.00,
             totalProfit: 31.01,
             winRate: 94.7,
-            activeTrades: [{id: 20, buyPrice: 73248.18, sellTarget: 75445.44, investment: 50.0}],
-            completedTrades: [
-                {id: 1, buyPrice: 69984.61, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
-                {id: 2, buyPrice: 69777.13, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
-                {id: 3, buyPrice: 69292.92, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
-                {id: 4, buyPrice: 69871.1, sellPrice: 73738.0, investment: 25.0, profit: 1.75, profitPercent: 7.0},
-                {id: 5, buyPrice: 69650.0, sellPrice: 71735.82, investment: 25.0, profit: -0.14, profitPercent: -0.56},
-                {id: 6, buyPrice: 69420.0, sellPrice: 72440.09, investment: 25.0, profit: 1.11, profitPercent: 4.44},
-                {id: 7, buyPrice: 69200.0, sellPrice: 72440.09, investment: 25.0, profit: 1.23, profitPercent: 4.92},
-                {id: 8, buyPrice: 71297.8, sellPrice: 73738.0, investment: 50.0, profit: 1.75, profitPercent: 3.5},
-                {id: 9, buyPrice: 71486.56, sellPrice: 73738.0, investment: 50.0, profit: 1.68, profitPercent: 3.36},
-                {id: 10, buyPrice: 71228.77, sellPrice: 73738.0, investment: 50.0, profit: 1.87, profitPercent: 3.74},
-                {id: 11, buyPrice: 71163.8, sellPrice: 73738.0, investment: 50.0, profit: 1.93, profitPercent: 3.86},
-                {id: 12, buyPrice: 71177.92, sellPrice: 73738.0, investment: 50.0, profit: 1.92, profitPercent: 3.84},
-                {id: 13, buyPrice: 71116.61, sellPrice: 73738.0, investment: 50.0, profit: 1.97, profitPercent: 3.94},
-                {id: 14, buyPrice: 70856.72, sellPrice: 73738.0, investment: 50.0, profit: 2.48, profitPercent: 4.96},
-                {id: 15, buyPrice: 70722.41, sellPrice: 73738.0, investment: 50.0, profit: 2.58, profitPercent: 5.16},
-                {id: 16, buyPrice: 70810.01, sellPrice: 73738.0, investment: 50.0, profit: 2.54, profitPercent: 5.08},
-                {id: 17, buyPrice: 70927.59, sellPrice: 73738.0, investment: 50.0, profit: 2.45, profitPercent: 4.9},
-                {id: 18, buyPrice: 70689.8, sellPrice: 73738.0, investment: 50.0, profit: 2.67, profitPercent: 5.34},
-                {id: 19, buyPrice: 70537.06, sellPrice: 73738.0, investment: 18.88, profit: 0.97, profitPercent: 5.14}
-            ]
+            activeTrades: [{"id": 20, "buyPrice": 73248.18, "sellTarget": 75445.44, "investment": 50.0}],
+            completedTrades: [{"id": 1, "buyPrice": 69984.61, "sellPrice": 72400.45, "investment": 25.0, "profit": 0.75, "profitPercent": 4.5}, {"id": 2, "buyPrice": 69777.13, "sellPrice": 72400.45, "investment": 25.0, "profit": 0.75, "profitPercent": 4.5}, {"id": 3, "buyPrice": 69292.92, "sellPrice": 72400.45, "investment": 25.0, "profit": 0.75, "profitPercent": 4.5}, {"id": 4, "buyPrice": 69871.1, "sellPrice": 73738.0, "investment": 25.0, "profit": 1.75, "profitPercent": 7.0}, {"id": 5, "buyPrice": 69650.0, "sellPrice": 71735.82, "investment": 25.0, "profit": -0.14, "profitPercent": -0.56}, {"id": 6, "buyPrice": 69420.0, "sellPrice": 72440.09, "investment": 25.0, "profit": 1.11, "profitPercent": 4.44}, {"id": 7, "buyPrice": 69200.0, "sellPrice": 72440.09, "investment": 25.0, "profit": 1.23, "profitPercent": 4.92}, {"id": 8, "buyPrice": 71297.8, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.75, "profitPercent": 3.5}, {"id": 9, "buyPrice": 71486.56, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.68, "profitPercent": 3.36}, {"id": 10, "buyPrice": 71228.77, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.87, "profitPercent": 3.74}, {"id": 11, "buyPrice": 71163.8, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.93, "profitPercent": 3.86}, {"id": 12, "buyPrice": 71177.92, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.92, "profitPercent": 3.84}, {"id": 13, "buyPrice": 71116.61, "sellPrice": 73738.0, "investment": 50.0, "profit": 1.97, "profitPercent": 3.94}, {"id": 14, "buyPrice": 70856.72, "sellPrice": 73738.0, "investment": 50.0, "profit": 2.48, "profitPercent": 4.96}, {"id": 15, "buyPrice": 70722.41, "sellPrice": 73738.0, "investment": 50.0, "profit": 2.58, "profitPercent": 5.16}, {"id": 16, "buyPrice": 70810.01, "sellPrice": 73738.0, "investment": 50.0, "profit": 2.54, "profitPercent": 5.08}, {"id": 17, "buyPrice": 70927.59, "sellPrice": 73738.0, "investment": 50.0, "profit": 2.45, "profitPercent": 4.9}, {"id": 18, "buyPrice": 70689.8, "sellPrice": 73738.0, "investment": 50.0, "profit": 2.67, "profitPercent": 5.34}, {"id": 19, "buyPrice": 70537.06, "sellPrice": 73738.0, "investment": 18.88, "profit": 0.97, "profitPercent": 5.14}]
         };
         
         let showAllCompleted = false;
@@ -477,30 +435,15 @@
                     document.getElementById('statusText').textContent = 'Live';
                     document.getElementById('statusDot').classList.remove('offline-dot');
                     
-                    updatePortfolioValue(price);
+                    // Update active pocket P&L
                     updateActiveP_L(price);
                 })
                 .catch(error => {
                     console.error('Price update failed:', error);
-                    document.getElementById('btcPrice').textContent = '$74,172';
+                    document.getElementById('btcPrice').textContent = '$73,383';
                     document.getElementById('statusText').textContent = 'Offline';
                     document.getElementById('statusDot').classList.add('offline-dot');
                 });
-        }
-        
-        function updatePortfolioValue(currentPrice) {
-            let totalValue = 0;
-            
-            // Add deployed capital current value
-            tradingData.activeTrades.forEach(pocket => {
-                const currentValue = (currentPrice / pocket.buyPrice) * pocket.investment;
-                totalValue += currentValue;
-            });
-            
-            // Add available USDC
-            totalValue += tradingData.availableUSDC;
-            
-            document.getElementById('portfolioValue').textContent = `$${totalValue.toFixed(2)}`;
         }
         
         function updateActiveP_L(currentPrice) {
@@ -514,7 +457,7 @@
                 const progressFillElement = document.getElementById(`progress_fill_${pocket.id}`);
                 
                 if (plElement) {
-                    plElement.textContent = `${plValue >= 0 ? '+' : ''}$${plValue.toFixed(2)}`;
+                    plElement.textContent = `$${plValue.toFixed(2)}`;
                     plElement.className = plValue >= 0 ? 'detail-value profit' : 'detail-value loss';
                 }
                 if (progressTextElement) {
@@ -524,17 +467,6 @@
                     progressFillElement.style.width = `${progressPercent}%`;
                 }
             });
-        }
-        
-        function calculateTotalProfit() {
-            const totalProfit = tradingData.completedTrades.reduce((sum, trade) => sum + trade.profit, 0);
-            const totalInvestment = tradingData.completedTrades.reduce((sum, trade) => sum + trade.investment, 0);
-            const overallReturn = (totalProfit / totalInvestment) * 100;
-            
-            document.getElementById('totalProfit').textContent = 
-                (totalProfit >= 0 ? '+' : '') + '$' + totalProfit.toFixed(2);
-            document.getElementById('profitSummary').textContent = 
-                `Overall Return: ${overallReturn >= 0 ? '+' : ''}${overallReturn.toFixed(1)}% across ${tradingData.completedTrades.length} trades`;
         }
         
         function toggleCompletedTrades() {
@@ -553,11 +485,11 @@
                 return;
             }
             
-            const displayTrades = showAllCompleted ? trades : trades.slice(0, 3);
+            const displayTrades = showAllCompleted ? trades : trades.slice(0, 5);
             
             container.innerHTML = displayTrades.map(trade => {
                 const isProfit = trade.profit > 0;
-                const badgeClass = isProfit ? 'profit' : 'loss';
+                const badgeClass = isProfit ? 'completed-badge' : 'loss-badge';
                 const cardClass = isProfit ? 'completed' : 'loss';
                 const profitClass = isProfit ? 'profit' : 'loss';
                 const profitSign = isProfit ? '+' : '';
@@ -566,7 +498,7 @@
                     <div class="pocket-card ${cardClass}">
                         <div class="pocket-header">
                             <div class="pocket-title">Pocket #${trade.id}</div>
-                            <div class="completed-badge ${badgeClass}">${profitSign}$${trade.profit.toFixed(2)}</div>
+                            <div class="${badgeClass}">${profitSign}$${trade.profit.toFixed(2)}</div>
                         </div>
                         <div class="pocket-details">
                             <div class="detail-item">
@@ -590,7 +522,7 @@
                 `;
             }).join('');
             
-            if (!showAllCompleted && trades.length > 3) {
+            if (!showAllCompleted && trades.length > 5) {
                 container.innerHTML += `<div class="no-positions">Click "Show All" to see all ${trades.length} completed trades</div>`;
             }
         }
@@ -614,7 +546,6 @@
         }
         
         // Initialize
-        calculateTotalProfit();
         updateBTCPrice();
         updateTimestamp();
         showCompletedTrades();
