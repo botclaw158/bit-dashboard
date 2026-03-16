@@ -29,6 +29,9 @@ h3 {
     font-size: 20px;
     margin: 25px 0 15px 0;
     color: #10b981;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 ul {
     font-size: 16px;
@@ -63,6 +66,10 @@ li {
     color: #10b981;
     font-weight: bold;
 }
+.loss {
+    color: #ef4444;
+    font-weight: bold;
+}
 hr {
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin: 25px 0;
@@ -72,6 +79,34 @@ hr {
     opacity: 0.7;
     font-size: 14px;
     margin-top: 20px;
+}
+.profit-box {
+    background: rgba(16, 185, 129, 0.15);
+    border: 2px solid #10b981;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+.toggle-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+.completed-trades {
+    margin-top: 15px;
+}
+.profit-summary {
+    font-size: 14px;
+    margin-top: 8px;
+    opacity: 0.8;
 }
 </style>
 </head>
@@ -93,8 +128,14 @@ hr {
 <li><strong>Active Pockets:</strong> 1 (Pocket #20)</li>
 <li><strong>Win Rate:</strong> 94.7%</li>
 <li><strong>Available Capital:</strong> $602.25</li>
-<li><strong>Total Profit:</strong> <span class="profit">$31.01</span></li>
 </ul>
+
+<!-- Total Profit Box -->
+<div class="profit-box">
+<h3 style="margin: 0 0 10px 0; font-size: 18px;">💰 Total Profit from Completed Trades</h3>
+<div style="font-size: 28px; font-weight: bold; color: #10b981;" id="totalProfit">+$31.01</div>
+<div class="profit-summary" id="profitSummary">Overall Return: +4.2% across 19 trades</div>
+</div>
 
 <h3>Active Position:</h3>
 <div class="trade-card">
@@ -105,15 +146,12 @@ Investment: $50.00<br>
 Current P&L: <span class="profit" id="pl20">+$0.00</span>
 </div>
 
-<h3>Recent Completed Trades:</h3>
-<div class="trade-card">
-<strong>Pocket #1:</strong> $69,984.61 → $72,400.45 <span class="profit">(+$0.75)</span>
-</div>
-<div class="trade-card">
-<strong>Pocket #2:</strong> $69,777.13 → $72,400.45 <span class="profit">(+$0.75)</span>
-</div>
-<div class="trade-card">
-<strong>Pocket #3:</strong> $69,292.92 → $72,400.45 <span class="profit">(+$0.75)</span>
+<h3>
+Completed Trades 
+<button class="toggle-btn" onclick="toggleAllTrades()" id="toggleBtn">Show All (19)</button>
+</h3>
+<div class="completed-trades" id="completedTrades">
+<!-- Will be populated by JavaScript -->
 </div>
 
 <div class="update-time">
@@ -124,6 +162,70 @@ Current P&L: <span class="profit" id="pl20">+$0.00</span>
 </div>
 
 <script>
+// Trading data with all completed trades
+const completedTrades = [
+    {id: 1, buyPrice: 69984.61, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
+    {id: 2, buyPrice: 69777.13, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
+    {id: 3, buyPrice: 69292.92, sellPrice: 72400.45, investment: 25.0, profit: 0.75, profitPercent: 4.5},
+    {id: 4, buyPrice: 69871.1, sellPrice: 73738.0, investment: 25.0, profit: 1.75, profitPercent: 7.0},
+    {id: 5, buyPrice: 69650.0, sellPrice: 71735.82, investment: 25.0, profit: -0.14, profitPercent: -0.56},
+    {id: 6, buyPrice: 69420.0, sellPrice: 72440.09, investment: 25.0, profit: 1.11, profitPercent: 4.44},
+    {id: 7, buyPrice: 69200.0, sellPrice: 72440.09, investment: 25.0, profit: 1.23, profitPercent: 4.92},
+    {id: 8, buyPrice: 71297.8, sellPrice: 73738.0, investment: 50.0, profit: 1.75, profitPercent: 3.5},
+    {id: 9, buyPrice: 71486.56, sellPrice: 73738.0, investment: 50.0, profit: 1.68, profitPercent: 3.36},
+    {id: 10, buyPrice: 71228.77, sellPrice: 73738.0, investment: 50.0, profit: 1.87, profitPercent: 3.74},
+    {id: 11, buyPrice: 71163.8, sellPrice: 73738.0, investment: 50.0, profit: 1.93, profitPercent: 3.86},
+    {id: 12, buyPrice: 71177.92, sellPrice: 73738.0, investment: 50.0, profit: 1.92, profitPercent: 3.84},
+    {id: 13, buyPrice: 71116.61, sellPrice: 73738.0, investment: 50.0, profit: 1.97, profitPercent: 3.94},
+    {id: 14, buyPrice: 70856.72, sellPrice: 73738.0, investment: 50.0, profit: 2.48, profitPercent: 4.96},
+    {id: 15, buyPrice: 70722.41, sellPrice: 73738.0, investment: 50.0, profit: 2.58, profitPercent: 5.16},
+    {id: 16, buyPrice: 70810.01, sellPrice: 73738.0, investment: 50.0, profit: 2.54, profitPercent: 5.08},
+    {id: 17, buyPrice: 70927.59, sellPrice: 73738.0, investment: 50.0, profit: 2.45, profitPercent: 4.9},
+    {id: 18, buyPrice: 70689.8, sellPrice: 73738.0, investment: 50.0, profit: 2.67, profitPercent: 5.34},
+    {id: 19, buyPrice: 70537.06, sellPrice: 73738.0, investment: 18.88, profit: 0.97, profitPercent: 5.14}
+];
+
+let showingAll = false;
+
+function calculateTotalProfit() {
+    const totalProfit = completedTrades.reduce((sum, trade) => sum + trade.profit, 0);
+    const totalInvestment = completedTrades.reduce((sum, trade) => sum + trade.investment, 0);
+    const overallReturn = (totalProfit / totalInvestment) * 100;
+    
+    document.getElementById('totalProfit').textContent = 
+        (totalProfit >= 0 ? '+' : '') + '$' + totalProfit.toFixed(2);
+    document.getElementById('profitSummary').textContent = 
+        `Overall Return: ${overallReturn >= 0 ? '+' : ''}${overallReturn.toFixed(1)}% across ${completedTrades.length} trades`;
+}
+
+function toggleAllTrades() {
+    showingAll = !showingAll;
+    showCompletedTrades();
+    document.getElementById('toggleBtn').textContent = 
+        showingAll ? 'Show Less' : `Show All (${completedTrades.length})`;
+}
+
+function showCompletedTrades() {
+    const container = document.getElementById('completedTrades');
+    const tradesToShow = showingAll ? completedTrades : completedTrades.slice(0, 3);
+    
+    container.innerHTML = tradesToShow.map(trade => {
+        const profitClass = trade.profit >= 0 ? 'profit' : 'loss';
+        const profitSign = trade.profit >= 0 ? '+' : '';
+        return `
+            <div class="trade-card">
+                <strong>Pocket #${trade.id}:</strong> $${trade.buyPrice.toLocaleString()} → $${trade.sellPrice.toLocaleString()} 
+                <span class="${profitClass}">(${profitSign}$${trade.profit.toFixed(2)})</span><br>
+                <small>Investment: $${trade.investment.toFixed(2)} • Return: ${profitSign}${trade.profitPercent.toFixed(1)}%</small>
+            </div>
+        `;
+    }).join('');
+    
+    if (!showingAll && completedTrades.length > 3) {
+        container.innerHTML += '<p style="text-align: center; opacity: 0.6; margin: 15px 0;">Click "Show All" to see remaining ' + (completedTrades.length - 3) + ' trades</p>';
+    }
+}
+
 function updateBTCPrice() {
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd')
         .then(response => response.json())
@@ -138,7 +240,7 @@ function updateBTCPrice() {
             const currentValue = btcAmount * price;
             const pl = currentValue - investment;
             document.getElementById('pl20').textContent = (pl >= 0 ? '+' : '') + '$' + pl.toFixed(2);
-            document.getElementById('pl20').style.color = pl >= 0 ? '#10b981' : '#ef4444';
+            document.getElementById('pl20').className = pl >= 0 ? 'profit' : 'loss';
         })
         .catch(error => {
             console.log('Using fallback price');
@@ -159,6 +261,8 @@ function updateTimestamp() {
 }
 
 // Initialize
+calculateTotalProfit();
+showCompletedTrades();
 updateBTCPrice();
 updateTimestamp();
 
