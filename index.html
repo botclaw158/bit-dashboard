@@ -4,6 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BTC Trading Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: system-ui, -apple-system; background: #0f1419; color: white; 
+            padding: 20px; min-height: 100vh;
+        }
+        .dashboard { max-width: 480px; margin: 0 auto; }
+        .card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); 
+                border-radius: 12px; padding: 20px; margin: 10px 0; text-align: center; }
+        .profit { background: linear-gradient(135deg, rgba(39,174,96,0.1), rgba(46,204,113,0.1)); 
+                  border-color: #27ae60; }
+        .label { font-size: 14px; opacity: 0.7; margin-bottom: 8px; }
+        .value { font-size: 28px; font-weight: bold; }
+        .green { color: #27ae60; }
+        .blue { color: #3498db; }
+        .orange { color: #f39c12; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .title { font-size: 20px; font-weight: bold; }
+        .status { font-size: 12px; opacity: 0.6; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <div class="title">BTC Trading Dashboard</div>
+            <div class="status" id="status">Live ‚Ä¢ Last Update: Loading...</div>
+        </div>
+        
+        <div class="card">
+            <div class="label">Current BTC Price</div>
+            <div class="value orange" id="price">Loading...</div>
+        </div>
+        
+        <div class="card">
+            <div class="label">Portfolio Value</div>
+            <div class="value green" id="portfolio">Loading...</div>
+        </div>
+        
+        <div class="card profit">
+            <div class="label">Total Profit Realized</div>
+            <div class="value green">+$31.01</div>
+            <div style="font-size: 12px; opacity: 0.7; margin-top: 4px;">
+                Overall Return: +4.2% across 19 trades
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="label">Win Rate</div>
+            <div class="value green">94.7%</div>
+        </div>
+        
+        <div class="card">
+            <div class="label">Active Pockets</div>
+            <div class="value blue">1</div>
+        </div>
+        
+        <div class="card">
+            <div class="label">Available USDC</div>
+            <div class="value blue">$602.25</div>
+        </div>
+    </div>
+    
+    <script>
+        async function updatePrice() {
+            try {
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+                const data = await response.json();
+                const price = data.bitcoin.usd;
+                
+                document.getElementById('price').textContent = `$${price.toLocaleString()}`;
+                
+                // Calculate portfolio value (1 active position + USDC)
+                const buyPrice = 73248.18;
+                const investment = 50.0;
+                const btcAmount = investment / buyPrice;
+                const currentValue = btcAmount * price;
+                const portfolioValue = currentValue + 602.25;
+                
+                document.getElementById('portfolio').textContent = `$${portfolioValue.toFixed(2)}`;
+                
+                const now = new Date();
+                document.getElementById('status').textContent = 
+                    `Live ‚Ä¢ Last Update: ${now.toLocaleTimeString()}`;
+                    
+            } catch (error) {
+                document.getElementById('status').textContent = 'Offline ‚Ä¢ API Error';
+            }
+        }
+        
+        // Update immediately and then every 30 seconds
+        updatePrice();
+        setInterval(updatePrice, 30000);
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Trading Dashboard</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>‚Çø</text></svg>">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
